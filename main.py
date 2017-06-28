@@ -4,8 +4,9 @@ import requests
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
+    # table headers
     table_heads = ['Name',
                    'Diameter',
                    'Climate',
@@ -13,24 +14,47 @@ def index():
                    'Surface water percentage',
                    'Population',
                    ]
-    response = requests.get('http://swapi.co/api/planets/').json()
+
+    # which page am i?
+    act_page = request.args.get('page')
+    if act_page is None:
+        act_page = '1'
+
+    # concatenate actual pages swapi link swapi
+    response = requests.get('http://swapi.co/api/planets/?page=' + act_page).json()
+
+    # set button values
+    but_next = None
+    but_prev = None
+    if response['next'] is not None:
+        but_next = str(response['next']).split('=', 1)[1]
+
+    if response['previous'] is not None:
+        but_prev = str(response['previous']).split('=', 1)[1]
+
+    # get and format table rows
     rows = []
     for planet in response['results']:
         row = []
         row.append(planet['name'])
-        row.append(format(int(planet['diameter']), ',d') + ' km')
+        if planet['diameter'] != 'unknown':
+            row.append(format(int(planet['diameter']), ',d') + ' km')
+        else:
+            row.append('unknown')
         row.append(planet['climate'])
         row.append(planet['terrain'])
         if planet['surface_water'] != 'unknown':
             row.append(planet['surface_water'] + '%')
         else:
             row.append('unknown')
-        try:
+        if planet['population'] != 'unknown':
             row.append(format(int(planet['population']), ',d') + ' people')
-        except ValueError:
+        else:
             row.append('unknown')
         rows.append(row)
-    return render_template('index.html', table_heads=table_heads, rows=rows)
+
+    # give index.html everything which needed
+    return render_template('index.html', table_heads=table_heads, but_next=but_next, but_prev=but_prev,  rows=rows)
 
 
 def main():
