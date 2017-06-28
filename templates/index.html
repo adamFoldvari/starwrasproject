@@ -9,7 +9,43 @@
     <link rel="stylesheet" type="text/css" href="static/main.css" >
 </head>
 <body>
-    <h1>Star Wars universe planets</h1>
+    <div class="container">
+        <div class="row">
+            <h1>Star Wars universe planets</h1>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary">Previous</button>
+            <button type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div class="row">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                    {% for table_head in table_heads %}
+                        <th>{{ table_head }}</th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+                <!--<tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+                </tbody>-->
+            </table>
+        </div>
+    </div>
 
 
     <script> src="https://code.jquery.com/jquery-3.2.1.js"; integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="; crossorigin="anonymous" </script>
