@@ -13,6 +13,7 @@ def index():
                    'Terrain',
                    'Surface water percentage',
                    'Population',
+                   'Residents',
                    ]
 
     # which page am i?
@@ -51,6 +52,10 @@ def index():
             row.append(format(int(planet['population']), ',d') + ' people')
         else:
             row.append('unknown')
+        if len(planet['residents']) > 0:
+            row.append(str(len(planet['residents'])) + ' resident(s)')
+        else:
+            row.append('No known residents')
         rows.append(row)
 
     # give index.html everything which needed

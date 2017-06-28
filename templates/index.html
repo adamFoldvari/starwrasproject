@@ -32,7 +32,12 @@
                     {% for row in rows %}
                         <tr>
                             {% for content in row %}
-                                <td>{{ content }} </td>
+                                <td>{% if 'resident(s)' in content %}
+                                        <button class="btn-block">{{ content }} </button>
+                                    {% else %}
+                                        {{ content }} 
+                                    {% endif %}
+                                </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
