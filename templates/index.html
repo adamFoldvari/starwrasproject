@@ -9,16 +9,22 @@
     <link rel="stylesheet" type="text/css" href="static/main.css" >
 </head>
 <body>
+
+    
+
     <div class="container">
+
         <div class="row">
             <h1>Star Wars universe planets</h1>
         </div>
+
         <div class="row">
             <div class="buttons">
                 <button type="button" class="btn btn-primary {% if but_prev is none  %} disabled {% endif %}" data-button='{{ but_prev }}'>Previous</button>
                 <button type="button" class="btn btn-primary {% if but_next is none  %} disabled {% endif %}" data-button='{{ but_next }}'>Next</button>
             </div>
         </div>
+
         <div class="row">
             <table class="table table-bordered table-hover">
                 <thead>
@@ -33,7 +39,7 @@
                         <tr>
                             {% for content in row %}
                                 <td>{% if 'resident(s)' in content %}
-                                        <button class="btn-block">{{ content }} </button>
+                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#myModal">{{ content }} </button>
                                     {% else %}
                                         {{ content }} 
                                     {% endif %}
@@ -44,10 +50,29 @@
                 </tbody>
             </table>
         </div>
+
     </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Residents of ...</h4>
+      </div>
+      <div class="modal-body">
+        table
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"> </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/main.js"> </script>
 </body>
 </html>
