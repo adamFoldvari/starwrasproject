@@ -13,9 +13,24 @@ def index():
                    'Surface water percentage',
                    'Population',
                    ]
-    response = requests.get('http://swapi.co/api/planets/?page=2').json()
-    print(response['results'][0]['name'])
-    return render_template('index.html', table_heads=table_heads)
+    response = requests.get('http://swapi.co/api/planets/').json()
+    rows = []
+    for planet in response['results']:
+        row = []
+        row.append(planet['name'])
+        row.append(format(int(planet['diameter']), ',d') + ' km')
+        row.append(planet['climate'])
+        row.append(planet['terrain'])
+        if planet['surface_water'] != 'unknown':
+            row.append(planet['surface_water'] + '%')
+        else:
+            row.append('unknown')
+        try:
+            row.append(format(int(planet['population']), ',d') + ' people')
+        except ValueError:
+            row.append('unknown')
+        rows.append(row)
+    return render_template('index.html', table_heads=table_heads, rows=rows)
 
 
 def main():
