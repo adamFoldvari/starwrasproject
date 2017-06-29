@@ -40,7 +40,7 @@
                             {% for content in row %}
                                 <td>{% if loop.index0 == 6 %}
                                         {% if content|length > 0 %}
-                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#residentsModal" data-planet='{{ row[6] }}'> 
+                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#residentsModal" data-residents='{{ row[6] }}'> 
                                             {{ content|length }}  resident(s)</button> 
                                         {% else %} 
                                         No known residents 
