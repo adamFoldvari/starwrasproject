@@ -74,7 +74,10 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = generate_password_hash(request.form['password'], method='pbkdf2:sha256', salt_length=8)
-        data_handler.add_user_to_db(username, password)
+        try:
+            data_handler.add_user_to_db(username, password)
+        except TypeError:
+            return render_template('form.html', username_exists=True)
         return redirect(url_for('index'))
     return render_template('form.html')
 
