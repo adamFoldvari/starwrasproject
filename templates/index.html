@@ -38,8 +38,13 @@
                     {% for row in rows %}
                         <tr>
                             {% for content in row %}
-                                <td>{% if 'resident(s)' in content %}
-                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#myModal">{{ content }} </button>
+                                <td>{% if loop.index0 == 6 %}
+                                        {% if content|length > 0 %}
+                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#residentsModal" data-planet='{{ row[6] }}'> 
+                                            {{ content|length }}  resident(s)</button> 
+                                        {% else %} 
+                                        No known residents 
+                                        {% endif %}
                                     {% else %}
                                         {{ content }} 
                                     {% endif %}
@@ -53,7 +58,7 @@
 
     </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="residentsModal" tabindex="-1" role="dialog" aria-labelledby="residentsModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

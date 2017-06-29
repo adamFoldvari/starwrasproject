@@ -52,10 +52,11 @@ def index():
             row.append(format(int(planet['population']), ',d') + ' people')
         else:
             row.append('unknown')
-        if len(planet['residents']) > 0:
-            row.append(str(len(planet['residents'])) + ' resident(s)')
-        else:
-            row.append('No known residents')
+        # if len(planet['residents']) > 0:
+        #     row.append(str(len(planet['residents'])) + ' resident(s)')
+        # else:
+        #     row.append('No known residents')
+        row.append(planet['residents'])
         rows.append(row)
 
     # give index.html everything which needed
