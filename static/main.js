@@ -7,17 +7,18 @@ $('.btn-primary').on('click', function(){
 
 
 $('#residentsModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget); // Button that triggered the modal
-//   var recipient = button.data('whatever') // Extract info from data-* attributes
+  var button = $(event.relatedTarget);
+  var modal = $(this)
+  var planetName = button.data('planet')
   var residentsString = button.data('residents');
   var residentsSubString = residentsString.substr(1).slice(0, -1).replace(/'/g, "").replace(/ /g, "")
   var residentsForPlanet = residentsSubString.split(',')
   Object.values(residentsForPlanet).forEach(function(value) {
-        getResidentAttributes(value);
+        $('.modal-table-body').empty()
+        getResidentAttributes(value, modal);
+        
     });
-  // for (var i = 0; i < residentsForPlanet.length; i++){
-    
-  // }
+  modal.find('.modal-title').text('Residents of ' + planetName)
 });
 // thats enough for today, take a rest, watch a movie and tommorrow make here ajax requests to get all residents attributes for the planet
 // you should use nested for loops i quess.... good luck
@@ -33,6 +34,8 @@ $('#residentsModal').on('show.bs.modal', function (event) {
 
 function getResidentAttributes(url){
   $.getJSON(url, function(response){
-      console.log(response['name'])
+    var newRowContent = "<tr><td>" + response['name'] + "</td><td>" + response['height'] + "</td><td>" + response['mass'] + "</td><td>" + response['hair_color'] +
+    "</td><td>" + response['skin_color'] + "</td><td>" + response['eye_color'] + "</td><td>" + response['birth_year']+ "</td><td>"+ response['gender'] + "</td></tr>"
+    $('.modal-table-body').append(newRowContent)
       });
 }

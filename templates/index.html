@@ -40,7 +40,7 @@
                             {% for content in row %}
                                 <td>{% if loop.index0 == 6 %}
                                         {% if content|length > 0 %}
-                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#residentsModal" data-residents='{{ row[6] }}'> 
+                                        <button type="button" class="btn-block" data-toggle="modal" data-target="#residentsModal" data-residents='{{ row[6] }}' data-planet='{{ row[0] }}'> 
                                             {{ content|length }}  resident(s)</button> 
                                         {% else %} 
                                         No known residents 
@@ -63,10 +63,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Residents of ...</h4>
+        <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-        table
+        <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Height</th>
+                        <th>Mass</th>
+                        <th>Hair color</th>
+                        <th>Skin color</th>
+                        <th>Eye color</th>
+                        <th>Birth year</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody class="modal-table-body">
+
+                </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
