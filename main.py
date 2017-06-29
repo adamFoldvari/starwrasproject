@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 import requests
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -52,11 +53,9 @@ def index():
             row.append(format(int(planet['population']), ',d') + ' people')
         else:
             row.append('unknown')
-        # if len(planet['residents']) > 0:
-        #     row.append(str(len(planet['residents'])) + ' resident(s)')
-        # else:
-        #     row.append('No known residents')
+        # residents passed for js
         row.append(planet['residents'])
+        # append for table
         rows.append(row)
 
     # give index.html everything which needed
