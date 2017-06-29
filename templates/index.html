@@ -9,8 +9,24 @@
     <link rel="stylesheet" type="text/css" href="static/main.css" >
 </head>
 <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Planet list</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="/login">Login</a></li>
+                {% if username %}
+                <li><a href="/logout">Logout</a></li>
+                {% endif %}
+            </ul>
+            {% if username %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a> Signed in as {{ username }} </a></li>
+            </ul>
+            {% endif %}
+        </div>
 
-    
+    </nav>
 
     <div class="container">
 
@@ -58,38 +74,38 @@
 
     </div>
 
-<div class="modal fade" id="residentsModal" tabindex="-1" role="dialog" aria-labelledby="residentsModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Height</th>
-                        <th>Mass</th>
-                        <th>Hair color</th>
-                        <th>Skin color</th>
-                        <th>Eye color</th>
-                        <th>Birth year</th>
-                        <th>Gender</th>
-                    </tr>
-                </thead>
-                <tbody class="modal-table-body">
+    <div class="modal fade" id="residentsModal" tabindex="-1" role="dialog" aria-labelledby="residentsModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Height</th>
+                            <th>Mass</th>
+                            <th>Hair color</th>
+                            <th>Skin color</th>
+                            <th>Eye color</th>
+                            <th>Birth year</th>
+                            <th>Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody class="modal-table-body">
 
-                </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                    </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"> </script>

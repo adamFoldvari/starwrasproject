@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 import requests
 from werkzeug.security import generate_password_hash, check_password_hash
+import data_handler
+from database_connection_data import secret_key
 
 app = Flask(__name__)
 
@@ -58,11 +60,42 @@ def index():
         # append for table
         rows.append(row)
 
+    if session.get('username'):
+        username = session['username']
+    else:
+        username = None
     # give index.html everything which needed
-    return render_template('index.html', table_heads=table_heads, but_next=but_next, but_prev=but_prev,  rows=rows)
+    return render_template('index.html', table_heads=table_heads, but_next=but_next, but_prev=but_prev,  rows=rows,
+                           username=username)
+
+
+@app.route('/registration', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = generate_password_hash(request.form['password'], method='pbkdf2:sha256', salt_length=8)
+        data_handler.add_user_to_db(username, password)
+        return redirect(url_for('index'))
+    return render_template('form.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        if data_handler.user_in_db(request.form['username'], request.form['password']):
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+    return render_template('form.html', login=True)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 def main():
+    app.secret_key = secret_key()
     app.run(debug=True)
 
 

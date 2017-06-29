@@ -99,3 +99,8 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Personal database connection data file
+database_connection_data.py
+
+.vscode
