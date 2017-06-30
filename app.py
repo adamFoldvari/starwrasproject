@@ -88,6 +88,8 @@ def login():
         if data_handler.user_in_db(request.form['username'], request.form['password']):
             session['username'] = request.form['username']
             return redirect(url_for('index'))
+        else:
+            return render_template('form.html', login=True, username_exists=True)
     return render_template('form.html', login=True)
 
 
