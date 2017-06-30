@@ -100,7 +100,7 @@ def logout():
 
 
 def main():
-    app.secret_key = secret_key()
+    app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
     app.run(debug=True)
 
 
