@@ -22,7 +22,7 @@ $('#residentsModal').on('show.bs.modal', function (event) {
 
 function getResidentAttributes(url){
   $.ajax({
-      url: url,
+      url: url.substring(5),
       dataType: "jsonp",
       success: function(response){
         var newRowContent = "<tr><td>" + response['name'] + "</td><td>" + response['height'] + "</td><td>" + response['mass'] + "</td><td>" + response['hair_color'] +
