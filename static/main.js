@@ -15,9 +15,8 @@ $('#residentsModal').on('show.bs.modal', function (event) {
   var residentsSubString = residentsString.substr(1).slice(0, -1).replace(/'/g, "").replace(/ /g, "")
   var residentsForPlanet = residentsSubString.split(',')
   Object.values(residentsForPlanet).forEach(function(value) {
-        var newValue = [value.slice(0, 4), 's', value.slice(4)].join('');
         $('.modal-table-body').empty()
-        getResidentAttributes(newValue);
+        getResidentAttributes(value);
     });
 });
 

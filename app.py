@@ -99,10 +99,4 @@ def logout():
     return redirect(url_for('index'))
 
 
-def main():
-    app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-    app.run(debug=True)
-
-
-if __name__ == '__main__':
-    main()
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
