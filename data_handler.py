@@ -22,7 +22,7 @@ def connect_database():
         # use our connection values to establish a connection
         # conn = psycopg2.connect(connect_str)
         # set autocommit option, to do every query when we call it
-        # conn.autocommit = True
+        conn.autocommit = True
         # create a psycopg2 cursor that can execute queries
         cursor = conn.cursor()
     except Exception as e:
