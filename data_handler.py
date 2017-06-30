@@ -1,17 +1,28 @@
 import psycopg2
 from database_connection_data import db_con_data
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+import urllib
 
 
 def connect_database():
     try:
+        urllib.parse.uses_netloc.append('postgres')
+        url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+        conn = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
         # setup connection string
-        connect_str = "dbname={} user={} host='localhost'".format(
-            db_con_data()['dbname'], db_con_data()['user'])
+        # connect_str = "dbname={} user={} host='localhost'".format(
+        #     db_con_data()['dbname'], db_con_data()['user'])
         # use our connection values to establish a connection
-        conn = psycopg2.connect(connect_str)
+        # conn = psycopg2.connect(connect_str)
         # set autocommit option, to do every query when we call it
-        conn.autocommit = True
+        # conn.autocommit = True
         # create a psycopg2 cursor that can execute queries
         cursor = conn.cursor()
     except Exception as e:
