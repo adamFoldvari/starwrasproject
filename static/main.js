@@ -21,7 +21,7 @@ $('#residentsModal').on('show.bs.modal', function (event) {
 });
 
 function getResidentAttributes(url){
-  $.getJSON(url, function(response){
+  $.getJSON(url + '/', function(response){
     var newRowContent = "<tr><td>" + response['name'] + "</td><td>" + response['height'] + "</td><td>" + response['mass'] + "</td><td>" + response['hair_color'] +
     "</td><td>" + response['skin_color'] + "</td><td>" + response['eye_color'] + "</td><td>" + response['birth_year']+ "</td><td>"+ response['gender'] + "</td></tr>"
     $('.modal-table-body').append(newRowContent)
