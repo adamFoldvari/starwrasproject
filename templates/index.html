@@ -13,8 +13,8 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav">
                 <li><a href="/">Planet list</a></li>
-                <li><a href="/registration">Registration</a></li>
-                <li><a href="/login">Login</a></li>
+                <li><a href="/registration" {% if username %} onclick="return false" {% endif %} >Registration</a></li>
+                <li><a href="/login" {% if username %} onclick="return false" {% endif %} >Login</a></li>
                 {% if username %}
                 <li><a href="/logout">Logout</a></li>
                 {% endif %}
