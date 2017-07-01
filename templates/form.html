@@ -4,33 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register for SW project</title>
+    {% if login %}
+       <title>Login to SW project</title>
+    {% else %}
+       <title>Register for SW project</title>
+    {% endif %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="static/main.css" >
 </head>
-<body>
-    <form {% if login %} action="/login" {% else %} action="/registration" {% endif %} method="POST">
-        <div class="form-group row">
-            <div class="col-xs-2">
-                <label for="username">User name:</label>
-                <input id="username" class="form-control" name="username" type="text" minlength="3" required>
-                <br>
-                {% if username_exists %}
-                <p id="alert">This username already exists!</p>
+<body id="formbody">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Planet list</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="/login">Login</a></li>
+                {% if username %}
+                    <li><a href="/logout">Logout</a></li>
                 {% endif %}
-            </div>
-        </div>    
-        <div class="form-group row">
-            <div class="col-xs-2">
-                <label for="password">Password:</label>
-                <input id="password" class="form-control" name="password" type="password" minlength="3" required>
-                <br>
-            </div>
-        </div> 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"> {% if login %} Login {% else %} Submit {% endif %}</button>
+            </ul>
+            {% if username %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a> Signed in as {{ username }} </a></li>
+                </ul>
+            {% endif %}
         </div>
-    </form>
+    </nav>
+    <div id="formdiv" class="wrapper">
+      <form {% if login %} action="/login" {% else %} action="/registration" {% endif %} method="POST">
+          <div class="form-signin row">
+              <div class="col-xs-2 col-xs-offset-5">
+                  <label for="username">User name:</label>
+                  <input id="username" class="form-control" name="username" placeholder="username" type="text" minlength="3" autofocus required>
+                  <br>
+                  {% if error_message %}
+                  <p id="alert"> {{ error_message }} </p>
+                  {% endif %}
+              </div>
+          </div>    
+          <div class="form-signin row">
+              <div class="col-xs-2 col-xs-offset-5">
+                  <label for="password">Password:</label>
+                  <input id="password" class="form-control" name="password" placeholder="password" type="password" minlength="3" required>
+                  <br>
+              </div>
+          </div> 
+          <div class="form-signin col-xs-2 col-xs-offset-5">
+              <button type="submit" class="btn btn-primary"> {% if login %} Login {% else %} Submit {% endif %}</button>
+          </div>
+      </form>
+  </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"> </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
