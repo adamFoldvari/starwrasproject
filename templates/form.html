@@ -15,8 +15,8 @@
                 <label for="username">User name:</label>
                 <input id="username" class="form-control" name="username" type="text" minlength="3" required>
                 <br>
-                {% if username_exists %}
-                <p id="alert">This username already exists!</p>
+                {% if error_message %}
+                <p id="alert"> {{ error_message }} </p>
                 {% endif %}
             </div>
         </div>    
