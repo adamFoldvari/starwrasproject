@@ -3,6 +3,7 @@ import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 import data_handler
 from database_connection_data import secret_key
+from os import urandom
 
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ def index():
     if act_page is None:
         act_page = '1'
 
-    # concatenate actual pages swapi link swapi
+    # concatenate actual pages swapi link
     response = requests.get('http://swapi.co/api/planets/?page=' + act_page).json()
 
     # set button values
@@ -57,9 +58,10 @@ def index():
             row.append('unknown')
         # residents passed for js
         row.append(planet['residents'])
-        # append for table
+        # append for table (rows)
         rows.append(row)
 
+    # are we logged in?
     if session.get('username'):
         username = session['username']
     else:
@@ -76,9 +78,11 @@ def register():
         password = generate_password_hash(request.form['password'], method='pbkdf2:sha256', salt_length=8)
         try:
             data_handler.add_user_to_db(username, password)
+            return redirect(url_for('index'))
         except TypeError:
+            # if username exists
             return render_template('form.html', error_message='This username already exists!')
-        return redirect(url_for('index'))
+    # in case of GET request (when page loads)
     return render_template('form.html')
 
 
@@ -89,7 +93,9 @@ def login():
             session['username'] = request.form['username']
             return redirect(url_for('index'))
         else:
+            # bad username or password
             return render_template('form.html', login=True, error_message='Wrong username or password. Try again!')
+    # in case of GET request (when page loads)
     return render_template('form.html', login=True)
 
 
@@ -100,7 +106,7 @@ def logout():
 
 
 def main():
-    app.secret_key = secret_key()
+    app.secret_key = urandom(24)
     app.run(debug=True)
 
 

@@ -5,14 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 def connect_database():
     try:
-        # setup connection string
         connect_str = "dbname={} user={} host='localhost'".format(
             db_con_data()['dbname'], db_con_data()['user'])
-        # use our connection values to establish a connection
         conn = psycopg2.connect(connect_str)
-        # set autocommit option, to do every query when we call it
         conn.autocommit = True
-        # create a psycopg2 cursor that can execute queries
         cursor = conn.cursor()
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
@@ -50,11 +46,15 @@ def query_result(*query):
 
 
 def add_user_to_db(username, password):
+    """Add the given username and 
+       password to the database"""
     query_result("""INSERT INTO user_table (user_name, password)
                     VALUES (%s, %s);""", (username, password))
 
 
 def user_in_db(username, password):
+    """Returns True if the given username exists
+       and has the same password as in the argument"""
     users = query_result("""SELECT user_name, password FROM user_table;""")
     for user in users:
         if user[0] == username:
